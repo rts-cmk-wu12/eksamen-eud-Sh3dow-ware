@@ -1,0 +1,17 @@
+@use "@/styles/variables/variables" as variables
+
+.not-found
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+  align-items: center
+  justify-content: center
+  font-family: variables.$inter-font
+  gap: 0.5rem
+  &__link
+    transition: 300ms ease-in-out
+  &__link:hover
+    background-color: black
+    border-radius: 12px
+    color: white
+    padding: 0.225rem

@@ -1,0 +1,23 @@
+@use "@/styles/variables/variables" as variables
+
+.pagination
+  display: flex
+  justify-content: space-evenly
+  align-items: center
+  font-family: variables.$inter-font
+  &__previous, &__next
+    display: flex
+    align-items: center
+    gap: 0.25rem
+  &__previous.disabled,  &__next.disabled
+    color: variables.$border_grayish
+  &__number.active
+    display: flex
+    justify-content: center
+    background-color: variables.$color_black
+    padding-left: 0.5rem
+    padding-right: 0.5rem
+    padding-top: 0.25rem
+    padding-bottom: 0.25rem
+    color: white
+    border-radius: 12px

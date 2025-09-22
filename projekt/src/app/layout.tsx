@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import React from "react";
-
+import "@/styles/main.sass"
+import {HeaderComponent} from "@/components/header/header";
 
 
 export const metadata: Metadata = {
@@ -16,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <HeaderComponent></HeaderComponent>
         {children}
       </body>
     </html>
