@@ -4,6 +4,8 @@ import Image from "next/image";
 import {ListingItemProps, ListingProps} from "@/types/ListingsTypes";
 import {useState} from "react";
 import {Pagination} from "@/components/section/products/pagination/Pagination";
+import "./Products.sass"
+import Link from "next/link";
 
 export const Products = ({items}: ListingProps) => {
 
@@ -16,15 +18,19 @@ export const Products = ({items}: ListingProps) => {
 
   return (
       <>
-        {
-          product?.map((item: ListingItemProps) =>
-              <section key={item.id}>
-                <Image quality={50} src={item.asset.url} alt={item.description} width={512} height={512}></Image>
-                <p>{item.title}</p>
-              </section>
-          )
-        }
-        <Pagination items={items} handleProduct={handleProducts}></Pagination>
+        <article className={"products"}>
+          {
+            product?.map((item: ListingItemProps) =>
+                <Link key={item.id} href={`/details/${item.id}`}>
+                  <section className={"products__section"}>
+                    <Image className={"products__image"} quality={50} src={item.asset.url} alt={item.description} width={256} height={256}></Image>
+                    <p className={"products__title"}>{item.title}</p>
+                  </section>
+                </Link>
+            )
+          }
+        </article>
+        <Pagination items={items} handleProductAction={handleProducts}></Pagination>
       </>
   );
 };
