@@ -1,0 +1,19 @@
+@use "@/styles/variables/variables" as variables
+
+.products
+  display: grid
+  gap: 1rem
+  margin: 1rem
+  justify-items: center
+  justify-content: center
+  grid-template-columns: repeat(auto-fill, minmax(315px, 1fr))
+  font-family: variables.$inter-font
+  &__section
+    max-width: 256px
+  &__title
+    text-wrap: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+  &__image
+    aspect-ratio: 1/1
+    object-fit: cover
