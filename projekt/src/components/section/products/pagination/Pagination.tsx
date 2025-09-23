@@ -1,12 +1,12 @@
 'use client'
 import {ListingItemProps} from "@/types/ListingsTypes";
 import {useEffect, useState} from "react";
-import "./pagination.sass"
+import "./Pagination.sass"
 import {ArrowLeft, ArrowRight} from "@/components/ui/icons/Icons";
 
-export const Pagination = ({items, handleProduct}: {
+export const Pagination = ({items, handleProductAction}: {
   items: ListingItemProps[],
-  handleProduct: (start: number, end: number) => { start, end }
+  handleProductAction: (start: number, end: number) => void
 }) => {
 
   const [itemNumber, setNumbers] = useState<number[]>([])
@@ -28,15 +28,15 @@ export const Pagination = ({items, handleProduct}: {
     let ItemsLength = items.length
     const MAX_ITEMS = 6
     const PAGE = page-1
-    handleProduct(0, 6)
+    handleProductAction(0, 6)
     if (page === ProductsArray) {
-      handleProduct(ItemsLength % MAX_ITEMS, ItemsLength)
+      handleProductAction(ItemsLength % MAX_ITEMS, ItemsLength)
     }
 
     itemNumber.map((item => {
 
       if (item === page) {
-        handleProduct(6 * PAGE, 6 * page )
+        handleProductAction(6 * PAGE, 6 * page )
       }
     }))
   }
