@@ -9,15 +9,22 @@
     display: flex
     align-items: center
     gap: 0.25rem
+    cursor: pointer
   &__previous.disabled,  &__next.disabled
+    cursor: not-allowed
     color: variables.$border_grayish
   &__number.active
     display: flex
-    justify-content: center
     background-color: variables.$color_black
-    padding-left: 0.5rem
-    padding-right: 0.5rem
-    padding-top: 0.25rem
-    padding-bottom: 0.25rem
+    aspect-ratio: 1/1
+    height: 25px
+    width: 25px
+    justify-content: center
+    align-items: center
     color: white
-    border-radius: 12px
+    border-radius: 8px
+  &__number
+    transition: 300ms
+
+
+
