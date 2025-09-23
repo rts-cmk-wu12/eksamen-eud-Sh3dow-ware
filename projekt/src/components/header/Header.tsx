@@ -2,20 +2,22 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import "./header.sass"
+import "./Header.sass"
 import {usePathname} from "next/navigation";
 
 
-export const HeaderComponent = (slug: string) => {
+  export const HeaderComponent = ()  => {
   const pathname = usePathname()
   return (
       <>
         <header className={"header"}>
           <nav className={"header__navigation"}>
             <ul className={"header__list header__logo"}>
+              <Link className={"header__list header__logo"} href={"/"}>
               <Image className={"header__item"} width={40} height={40} src={"/logo/swaphub.svg"}
                      alt={"swaphub logo"}></Image>
               <p className={"header__item"}>SwapHub</p>
+              </Link>
             </ul>
             <ul className={"header__list"}>
               <li className={`header__item ${pathname === '/' ? 'active' : ''}`}><Link href={"/"}>Listings</Link></li>
