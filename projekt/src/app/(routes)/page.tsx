@@ -1,14 +1,22 @@
 import {Products} from "@/components/section/products/Products";
 
-
 const HomePage = async () => {
-  const ProductResponse = await fetch("http://localhost:4000/api/v1/listings")
-  const ProductData = await ProductResponse.json()
-  return (
-      <>
-        <Products items={ProductData}></Products>
-      </>
-  )
+  try {
+    const ProductResponse = await fetch(process.env.API_URL + "listings")
+    const ProductData = await ProductResponse.json()
+    return (
+        <>
+          <Products items={ProductData}></Products>
+        </>
+    )
+  } catch (e) {
+    let ErrorMsg = (e as Error).message
+    return (
+        <>
+          <p>Der skete en fejl på serveren, {ErrorMsg}</p>
+        </>
+    )
+  }
 }
 
 
