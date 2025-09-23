@@ -1,0 +1,25 @@
+@use "@/styles/variables/variables" as variables
+
+.details
+  display: flex
+  flex-wrap: wrap
+  margin: 2rem
+  font-family: variables.$inter-font
+  &__product
+    display: grid
+    flex: 1
+    margin: 0.25rem
+    padding: 0.25rem
+
+  &__propose
+    border-radius: 12px
+    padding: 0.5rem
+    border: solid 1px variables.$border_grayish
+    width: max-content
+    height: max-content
+  &__image
+    aspect-ratio: 1/1
+    object-fit: cover
+    width: 100%
+    min-width: 250px
+    max-width: 415px
