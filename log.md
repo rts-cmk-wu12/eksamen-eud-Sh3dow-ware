@@ -15,7 +15,7 @@ Brug denne logbog til at dokumentere din arbejdstid i eksamensugen.
 ## Dag 3
 
 - Start-Tidspunkt: **8:20**
-- Slut-Tidspunkt: 
+- Slut-Tidspunkt: **15:57**
 
 ## Dag 4
 Skriv dit starttidspunkt her og commit/push til GitHub: 
