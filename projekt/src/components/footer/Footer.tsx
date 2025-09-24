@@ -6,14 +6,14 @@ export const Footer = () => {
   return (
       <footer className={"footer"}>
         <nav className={"footer__navigation"}>
-          <ul>
-            <Link href={"/"}>
+          <ul className={"footer__logo"}>
+            <Link className={"footer__logo-link"} href={"/"}>
               <Image  width={40} height={40} src={"/logo/swaphub.svg"}
                      alt={"swaphub logo"}></Image>
-              <p >SwapHub</p>
+              <p>SwapHub</p>
             </Link>
           </ul>
-          <ul>
+          <ul className={"footer__social"}>
             <li><Link href={"/"}><Twitter></Twitter></Link></li>
             <li><Link href={"/"}><Instagram></Instagram></Link></li>
             <li><Link href={"/"}><Youtube></Youtube></Link></li>
@@ -22,7 +22,7 @@ export const Footer = () => {
         </nav>
 
         <nav className={"footer__navigation"}>
-        <p>About SwapHub</p>
+        <p className={"footer__heading"}>About SwapHub</p>
           <ul>
             <li>How it works</li>
             <li>Community guidelines</li>
@@ -31,7 +31,7 @@ export const Footer = () => {
           </ul>
         </nav>
         <nav className={"footer__navigation"}>
-          <p>Discover</p>
+          <p className={"footer__heading"}>Discover</p>
           <ul>
             <li>Browse categories</li>
             <li>Popular Swaps</li>
@@ -40,7 +40,7 @@ export const Footer = () => {
           </ul>
         </nav>
         <nav className={"footer__navigation"}>
-          <p>Support</p>
+          <p className={"footer__heading"}>Support</p>
           <ul>
             <li>Help Center</li>
             <li>FAQs</li>

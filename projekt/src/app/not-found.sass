@@ -3,14 +3,16 @@
 .not-found
   display: flex
   flex-direction: column
-  min-height: 100vh
+  flex-grow: 1
   align-items: center
   justify-content: center
   font-family: variables.$inter-font
   gap: 0.5rem
   &__link
     transition: 300ms ease-in-out
+    border-bottom: 1px solid black
   &__link:hover
+    border-bottom: 0
     background-color: black
     border-radius: 12px
     color: white

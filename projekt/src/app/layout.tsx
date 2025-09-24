@@ -5,6 +5,7 @@ import {HeaderComponent} from "@/components/header/Header";
 import {Footer} from "@/components/footer/Footer";
 
 
+
 export const metadata: Metadata = {
   title: "SwapHub",
   description: "Website has been made by SwapHub",

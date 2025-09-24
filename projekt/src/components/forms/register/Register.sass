@@ -1,0 +1,39 @@
+@use "@/styles/variables/variables" as variables
+
+.register-wrapper
+  font-family: variables.$inter-font
+  display: flex
+  height: 100%
+  justify-content: center
+  flex-grow: 1
+  align-items: center
+  margin: 1rem
+
+.register
+  display: flex
+  flex-direction: column
+  max-width: 320px
+  width: 100%
+  gap: 1rem
+  border: 1px solid variables.$border_grayish
+  border-radius: 12px
+  padding: 2rem
+  &__container
+    display: flex
+    flex-direction: column
+  &__input
+    border: 1px solid variables.$border_grayish
+    border-radius: 12px
+    padding: 0.75rem
+    margin: 0.25rem 0
+  &__submit
+    background-color: variables.$color_black
+    color: variables.$background_white
+    padding: 0.75rem
+    border-radius: 12px
+    cursor: pointer
+  &__register
+    text-decoration: underline
+    background-color: transparent
+    align-self: start
+    cursor: pointer
