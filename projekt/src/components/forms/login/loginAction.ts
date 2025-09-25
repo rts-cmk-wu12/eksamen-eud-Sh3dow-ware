@@ -7,6 +7,7 @@ import {cookies} from "next/headers";
 import {redirect} from "next/navigation";
 
 
+
 export async function loginAction(_prevState: loginPropsState, formData: FormData): Promise<loginPropsState> {
   const {email, password} = Object.fromEntries(formData)
 
@@ -51,12 +52,12 @@ export async function loginAction(_prevState: loginPropsState, formData: FormDat
       value: data.token,
       maxAge: Math.floor(data.validUntil / 1000)
     })
-
   } catch (e) {
     return {
       success: false,
       message: "Din email eller adgangskode er forkert."
     }
   }
+
   redirect("/")
 }

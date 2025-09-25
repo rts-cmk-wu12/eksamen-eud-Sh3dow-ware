@@ -1,9 +1,10 @@
 'use client'
 
 import {useActionState, useEffect, useState} from "react";
-import {getCookieAction, newsletterAction} from "@/components/forms/newsletter/newsletterAction";
+import {newsletterAction} from "@/components/forms/newsletter/newsletterAction";
 import "./Newsletter.sass"
 import SpinnerDark from "@/components/forms/newsletter/SpinnerDark";
+import {getCookieAction} from "@/app/utils/server/getCookieAction";
 
 
 export const Newsletter = () => {
@@ -12,7 +13,7 @@ export const Newsletter = () => {
   const [subscribed, setSubscribe] = useState<boolean>()
 
   async function waitCookie() {
-    const cookieValue = await getCookieAction()
+    const cookieValue = await getCookieAction("newsletter__access")
     setSubscribe(cookieValue)
   }
   useEffect(() => {

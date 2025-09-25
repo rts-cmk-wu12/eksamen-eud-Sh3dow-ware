@@ -1,6 +1,6 @@
 'use server'
-import { setTimeout } from "timers/promises";
-import { z } from 'zod';
+import {setTimeout} from "timers/promises";
+import {z} from 'zod';
 import {newsletterPropsState} from "@/types/LoginTypes";
 import {cookies} from "next/headers";
 
@@ -21,7 +21,7 @@ export async function newsletterAction(_prevState: newsletterPropsState, formDat
   })
 
 
-  console.log(validated)
+
 
   if (!validated.success) {
     const errorTree = z.treeifyError(validated.error);
@@ -34,32 +34,40 @@ export async function newsletterAction(_prevState: newsletterPropsState, formDat
     }
   }
 
-  await setTimeout(1000)
 
-  const cookieStore = await cookies()
+  try {
+    const newsletter_response = await fetch(process.env.API_URL + "api/v1/newsletter", {
+      headers: {
+        "content-type": "application/json"
+      },
+      method: "POST",
+      body : JSON.stringify({
+        "email": validated.data.email
+      })
+    })
+    const data = await newsletter_response.json()
+    if (data.success) {
+      await setTimeout(1000)
 
-  cookieStore.set({
-    name: "newsletter__access",
-    value: "on",
-    maxAge: 31556926,
-    sameSite: "lax"
-  })
+      const cookieStore = await cookies()
 
-  cookieStore.set({
-    name: "newsletter_user",
-    value: btoa(validated.data.email),
-    maxAge: 31556926,
-    sameSite: "lax",
-  })
+      cookieStore.set({
+        name: "newsletter__access",
+        value: "on",
+        maxAge: 31556926,
+      })
+
+      cookieStore.set({
+        name: "newsletter_user",
+        value: btoa(validated.data.email),
+        maxAge: 31556926,
+      })
+    }
+  } catch (e) {
+    throw new Error("Der skete en fejl med serveren.")
+  }
 
   return {
     success: true
   }
-}
-
-
-
-export async function getCookieAction(){
-  const cookieStore = await cookies()
-  return cookieStore.has("newsletter__access")
 }

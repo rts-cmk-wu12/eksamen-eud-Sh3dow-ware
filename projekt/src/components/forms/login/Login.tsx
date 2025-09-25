@@ -5,12 +5,12 @@ import {loginAction} from "@/components/forms/login/loginAction";
 import "./Login.sass"
 import {LoginVersion, LoginVersionState} from "@/types/LoginTypes";
 import {Register} from "@/components/forms/register/Register";
-import {useAuth} from "@/hooks/useAuth";
+import {useCookie} from "@/hooks/useCookie";
 
 export const Login = () => {
   const [formState, formAction, isPending] = useActionState(loginAction, {})
   const [formVersion, setFormVersion] = useState<LoginVersion>("Login")
-  const {login} = useAuth()
+  const {login} = useCookie(["getCookie", "access_token"])
 
   const registerMenu = () => {
     setFormVersion(prevState => prevState === "Login" ? "Register" : "Login")

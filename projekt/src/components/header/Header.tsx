@@ -4,21 +4,14 @@ import Link from "next/link"
 import Image from "next/image"
 import "./Header.sass"
 import {usePathname} from "next/navigation";
-import {useAuth} from "@/hooks/useAuth";
-import {useFetch} from "@/hooks/useFetch";
+import {useCookie} from "@/hooks/useCookie";
+import {handleCookieDeleteRequest} from "@/app/utils/client/handleCookieRequest";
 
 
 export const HeaderComponent = () => {
   const pathname = usePathname()
-  const {login} = useAuth()
+  const {login} = useCookie(["getCookie", "access_token"])
 
-
-
-  function logout(){
-    const {} = useFetch("api/logout", {
-      method: "POST"
-    })
-  }
 
   return (
       <>
@@ -37,11 +30,8 @@ export const HeaderComponent = () => {
                   href={"/community"}>Community</Link></li>
               <li className={`header__item ${pathname === '/contact' ? 'active' : ''}`}><Link
                   href={"/contact"}>Contact</Link></li>
-
-              {!login ? <li className={`header__item header__signin ${pathname === '/login' ? 'active-sign-up' : ''}`}><Link
-                  href={"/login"}>{login ? "Log out" : "Sign in"}</Link></li> : <li onClick={logout} className={`header__item header__signin ${pathname === '/' ? 'active-sign-up' : ''}`}><Link
-                href={"/login"}>{login ? "Log out" : "Sign in"}</Link></li> }
-
+              <li onClick={async () => handleCookieDeleteRequest("access_token")} className={`header__item header__signin ${pathname === '/login' ? 'active-sign-up' : ''}`}><Link
+                  href={"/login"}>{!login ? "Sign in" : "Log Out"}</Link></li>
               <li className={`header__item header__login ${pathname === '/login' ? 'active-login' : ''}`}><Link
                   href={"/login"}>Register</Link></li>
             </ul>

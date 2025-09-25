@@ -4,6 +4,7 @@ import "./Details.sass"
 
 
 export const DetailsListings = ({data}: {data:ListingItemProps}) => {
+  console.log(data)
   return (
       <>
      <main className={"details"}>
