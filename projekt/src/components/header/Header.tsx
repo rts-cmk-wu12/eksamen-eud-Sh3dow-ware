@@ -33,7 +33,7 @@ export const HeaderComponent = () => {
               <li onClick={async () => handleCookieDeleteRequest("access_token")} className={`header__item header__signin ${pathname === '/login' ? 'active-sign-up' : ''}`}><Link
                   href={"/login"}>{!login ? "Sign in" : "Log Out"}</Link></li>
               <li className={`header__item header__login ${pathname === '/login' ? 'active-login' : ''}`}><Link
-                  href={"/login"}>Register</Link></li>
+                  href={!login ? "/login" : "/profile"}>{!login ? "Register" : "Se Profil"}</Link></li>
             </ul>
           </nav>
         </header>

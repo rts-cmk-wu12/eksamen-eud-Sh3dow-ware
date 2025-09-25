@@ -8,7 +8,7 @@ import {has} from "immutable";
 type actionAuth = "getCookie"
 
 export const useCookie = (
-    ...args: [action?: actionAuth, keyCookie?: string, changeState?: boolean][]
+    ...args: [action?: actionAuth, keyCookie?: string][]
 ) => {
   const [login, setLogin] = useState<boolean>(false)
 
@@ -17,16 +17,13 @@ export const useCookie = (
   }
 
   useEffect(() => {
-    args.forEach(([action, keyCookie, changeState]) => {
+    args.forEach(([action, keyCookie]) => {
       if (action === "getCookie" && keyCookie) {
         checkCookie(keyCookie).then(value => {
           setLogin(value)
         })
-        if (changeState !== undefined) {
-          setLogin(changeState)
-        }
       }
     })
-  }, [login]);
+  }, [args]);
   return {login}
 }
