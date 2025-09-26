@@ -2,8 +2,6 @@
 
 import {useEffect, useState} from "react";
 import {getCookieAction} from "@/app/utils/server/getCookieAction";
-import {has} from "immutable";
-
 
 type actionAuth = "getCookie"
 
