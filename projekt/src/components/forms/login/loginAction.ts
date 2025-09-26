@@ -52,6 +52,12 @@ export async function loginAction(_prevState: loginPropsState, formData: FormDat
       value: data.token,
       maxAge: Math.floor(data.validUntil / 1000)
     })
+    cookieStore.set({
+      name: 'userID',
+      value: String(data.userId),
+      maxAge: Math.floor(data.validUntil / 1000)
+    })
+
   } catch (e) {
     return {
       success: false,
