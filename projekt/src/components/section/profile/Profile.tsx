@@ -1,6 +1,5 @@
 'use client'
 
-
 import {ProfileProps} from "@/types/ProfileTypes";
 import "./Profile.sass"
 import {useState} from "react";

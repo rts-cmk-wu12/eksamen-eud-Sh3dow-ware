@@ -1,4 +1,4 @@
-import {cookies} from "next/headers";
+import {cookies, headers} from "next/headers";
 import {Profile} from "@/components/section/profile/Profile";
 import {ProfileUserProps} from "@/types/ProfileTypes";
 
@@ -11,14 +11,18 @@ const ProfilePage = async () => {
   try {
     if (userID && access_token) {
       const response = await fetch(process.env.API_URL + "users/" + userID, {
-        method: "GET",
         headers: {
-          "content-type": "application/json",
           Authorization: `Bearer ${access_token}`
         }
       })
 
+      if (!response.ok && !response.headers.get("content-type")?.includes("application/json")) {
+        throw new Error("Resultatet var ikke json, prøv at logge ud for at fikse problemet.")
+      }
+
       const data: ProfileUserProps = await response.json()
+
+   
       return (
           <>
             <Profile user={data}></Profile>
