@@ -3,7 +3,7 @@
 Installation af selve projektet:
 - ``Download ZIP`` eller ``git clone url-to-repository``
 - ``npm i`` *Dette ville installere alle dependecies som du har brug for.*
-- ``npm run dev`` *Dette kører selve projektet normalt: http://localhost:3000*
+- ``npm run dev`` *Dette kører selve projektet normalt på: http://localhost:3000*
 ### Tech Stack
 - TypeScript
 - Sass(.sass)
@@ -80,18 +80,115 @@ Git og GitHub er standarden i de fleste moderne udviklingsmiljøer, hvilket er m
 ### Kode eksempel:
 
 ```tsx
-const PasteCodeExampleHere: string;
+// - src/components/forms/edit/editInfoAction.ts
+'use server'
+import {z} from 'zod';
+import {loginReturnProps, registerPropsState} from "@/types/LoginTypes";
+import {cookies} from "next/headers";
+import {revalidatePath} from "next/cache";
+
+export async function editInfoAction(_prevState: registerPropsState, formData: FormData): Promise<registerPropsState> {
+  const {email, password, firstname, lastname} = Object.fromEntries(formData)
+
+
+  const register_schema = z.object({
+    email: z.email().min(3, {error: "Du skal udfylde email"}).max(100, {error: "Email'en overskrider 100 karaktere."}),
+    password: z.string().min(6, {error: "Du skal udfylde password"}),
+    firstname: z.string().min(2, {error: "Du skal udfylde First Name"}).max(20, {error: "Dit navn overskrider 20 karatere"}),
+    lastname: z.string().min(2, {error: "Du skal udfylde Last Name"}).max(30, {error: "Dit efternavn overskrider 20 karatere"}),
+  })
+
+  const validated = register_schema.safeParse({
+    email,
+    password,
+    firstname,
+    lastname
+  })
+
+  if (!validated.success) {
+    const errorTree = z.treeifyError(validated.error)
+    return {
+      ...validated,
+      errors: {
+        email: errorTree.properties?.email?.errors,
+        password: errorTree.properties?.password?.errors,
+        firstname: errorTree.properties?.firstname?.errors,
+        lastname: errorTree.properties?.lastname?.errors
+      },
+    }
+  }
+
+  try {
+    const cookieStore = await cookies()
+    const userID = cookieStore.get("userID")?.value
+    const access_token = cookieStore.get("access_token")?.value
+    if (userID) {
+      const response = await fetch(process.env.API_URL + "users/" + userID, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${access_token}`
+        },
+        method: "PUT",
+        body: JSON.stringify(validated.data)
+      })
+
+      const renewAccessToken = await fetch(`${process.env.API_AUTH}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: validated.data.email,
+          password: validated.data.password,
+        })
+      })
+
+      const token_data: loginReturnProps = await renewAccessToken.json()
+
+      cookieStore.set({
+        name: "access_cookie",
+        value: token_data.token,
+        maxAge: Math.floor(token_data.validUntil / 1000)
+      })
+    }
+  } catch (e) {
+    return {
+      success: false,
+      message: (e as Error).message
+    }
+  } finally {
+    revalidatePath("/profile")
+  }
+
+  return {
+    success: true
+  }
+}
 ```
 
 
-**Foklar hvordan koden virker:**
+**Kode Forklaring:**
+Dette er en Server Action, som tager mod to parameter og validere selve det
+input har fået fra Formularen ved hjælp af zod. 
 
+Udover spørger vi også om, hvis validation fejler
+så skal returnere en fejl besked, hvilket også er kaldt en guard clause, hvis den selvfølig successfuld validation,
+så går vi vidre til `try catch finally`. 
 
+Derfefter fetcher jeg to endpoints, det første endpoint for opdatere dataen.
+Det anden fetch retunere en ny cookie, med vores nye data, som vi kan sætte i vores cookie.
+Hvis alt, at dette lykkes, så revalidere path, som invalidere selve cached fra profil siden
+Hvis det ikke lykkes får vi en fejl besked.
 
 
 ## Valgfri opgave valg: C
 
-**Hvorfor har jeg valgte denne opgave:**
+
+### Design ændringer
+Jeg har valgt at ændre på formularen, fordi jeg syntes at "Forget Password" ikke
+passet til der, istedet for jeg lavet det til en interativ knap som kan skifte mellem
+Login In og Sign up også fordi at man skal kunne opdatere sit password på profil siden
+så personligt synes jeg selv at var en gentagelse som ikke helt passede til designet.
+
 
 
 
