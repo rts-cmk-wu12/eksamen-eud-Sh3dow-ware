@@ -23,6 +23,16 @@ export interface loginPropsState {
 }
 
 
+export type registerPropsState = loginPropsState & {
+  firstname?: string;
+  lastname?: string;
+  errors?: {
+    firstname?: string[];
+    lastname?: string[];
+  }
+}
+
+
 export type LoginVersion = "Register" | "Login";
 export enum LoginVersionState {
   Login= "Login",
@@ -38,4 +48,16 @@ export interface loginReturnProps {
   userId: number;
   token: string;
   validUntil: number;
+}
+
+
+
+export interface createUserProps {
+  id: number
+  email: ZodEmail,
+  password: string
+  firstname: string
+  lastname: string
+  updatedAt: Date,
+  createdAt: Date
 }
