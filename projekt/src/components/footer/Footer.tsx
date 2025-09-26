@@ -1,14 +1,19 @@
+'use client'
+
 import Link from "next/link";
 import Image from "next/image";
 import {Instagram, Linkedin, Twitter, Youtube} from "@/components/ui/icons/Icons";
 import "./Footer.sass"
+import {usePathname} from "next/navigation";
+
 export const Footer = () => {
+  const path_name = usePathname()
   return (
       <footer className={"footer"}>
         <nav className={"footer__navigation"}>
           <ul className={"footer__logo"}>
             <Link className={"footer__logo-link"} href={"/"}>
-              <Image  width={40} height={40} src={"/logo/swaphub.svg"}
+              <Image width={40} height={40} src={"/logo/swaphub.svg"}
                      alt={"swaphub logo"}></Image>
               <p>SwapHub</p>
             </Link>
@@ -22,30 +27,54 @@ export const Footer = () => {
         </nav>
 
         <nav className={"footer__navigation"}>
-        <p className={"footer__heading"}>About SwapHub</p>
+          <p className={"footer__heading"}>About SwapHub</p>
           <ul>
-            <li>How it works</li>
-            <li>Community guidelines</li>
-            <li>Our mission</li>
-            <li>Contact us</li>
+            <Link href={path_name}>
+              <li>How it works</li>
+            </Link>
+            <Link href={path_name}>
+              <li>Community guidelines</li>
+            </Link>
+            <Link href={path_name}>
+              <li>Our mission</li>
+            </Link>
+            <Link href={path_name}>
+              <li>Contact us</li>
+            </Link>
           </ul>
         </nav>
         <nav className={"footer__navigation"}>
           <p className={"footer__heading"}>Discover</p>
           <ul>
-            <li>Browse categories</li>
-            <li>Popular Swaps</li>
-            <li>Successful stories</li>
-            <li>Upcoming swaps</li>
+            <Link href={path_name}>
+              <li>Browse categories</li>
+            </Link>
+            <Link href={path_name}>
+              <li>Popular Swaps</li>
+            </Link>
+            <Link href={path_name}>
+              <li>Successful stories</li>
+            </Link>
+            <Link href={path_name}>
+              <li>Upcoming swaps</li>
+            </Link>
           </ul>
         </nav>
         <nav className={"footer__navigation"}>
           <p className={"footer__heading"}>Support</p>
           <ul>
-            <li>Help Center</li>
-            <li>FAQs</li>
-            <li>Safety tips</li>
-            <li>Report an issue</li>
+            <Link href={path_name}>
+              <li>Help Center</li>
+            </Link>
+            <Link href={path_name}>
+              <li>FAQs</li>
+            </Link>
+            <Link href={path_name}>
+              <li>Safety tips</li>
+            </Link>
+            <Link href={path_name}>
+              <li>Report an issue</li>
+            </Link>
           </ul>
         </nav>
       </footer>
