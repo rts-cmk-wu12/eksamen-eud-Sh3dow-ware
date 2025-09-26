@@ -16,8 +16,18 @@ export const Register = ({registerFunction}: registerMenuProps) => {
               <span>{formState?.errors?.email ? `• ${formState?.errors?.email?.[1]}` : ""} </span>
             </div>
             <div className={"register__container"}>
-              <label className={"register__label"} htmlFor={"register_check"}>Password</label>
-              <input className={"register__input"} type={"password"} name={"register_check"} placeholder={"Value"}
+              <label className={"register__label"} htmlFor={"password"}>Password</label>
+              <input className={"register__input"} type={"password"} name={"password"} placeholder={"Value"}
+                     id={"register_check"}/>
+            </div>
+            <div className={"register__container"}>
+              <label className={"register__label"} htmlFor={"firstname"}>First Name</label>
+              <input className={"register__input"} type={"text"} name={"firstname"} placeholder={"Value"}
+                     id={"register_check"}/>
+            </div>
+            <div className={"register__container"}>
+              <label className={"register__label"} htmlFor={"lastname"}>Last Name</label>
+              <input className={"register__input"} type={"text"} name={"lastname"} placeholder={"Value"}
                      id={"register_check"}/>
             </div>
             <button type={"submit"} className={"register__submit"}>Register</button>
